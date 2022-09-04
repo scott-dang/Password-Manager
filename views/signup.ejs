@@ -1,0 +1,15 @@
+<h1>Signup Page</h1>
+<form action="/signup" method="post">
+
+    <h3> <%= failureReasoning %> </h3>
+
+    <label for="username">User ID</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required autocomplete="off">
+
+    <button type="submit">Create</button>
+</form>
+
+<h2>Already have an account?</h2>
+<a href="/login">Login to your account</a>

@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="css/login.css">
+<div id="login">
+    <h1>Login Page</h1>
+
+    <form action="/login" method="post" autocomplete="off">
+
+        <div id="username"> 
+            <label for="username">User ID</label>
+            <input type="text" name="username" id="username" value="" required>
+        </div>
+        <div id="password">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="" required>
+        </div>
+        
+        <button type="submit">Login</button>
+    </form>        
+</div>
+
+<div>
+    <h2>Don't have an account?</h2>
+    <a href="/signup">Create an account</a>
+</div>

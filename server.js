@@ -1,47 +1,58 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 const express = require('express')
-const app = express()
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 const bcrypt = require('bcrypt')
 
+const connection = require('./config/db')
+const error = require('./config/error')
+const passport = require('./config/passport')
+
+const app = express()
+app.set('view engine', 'ejs')
+
+app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(express.static(__dirname + '/public'))
 
-const users = []
-
-app.get('/users', (req,res) => {
-    res.json(users)
-})
-
-app.post('/users/signup', async (req,res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = { name: req.body.name, password: hashedPassword }
-        users.push(user)
-        res.status(201).send()
-    } catch (err) {
-        console.log(err)
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        client: connection.getClient(),
+        collectionName: 'sessions'
+    }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 1 sec (in ms) * ... = 1 day
     }
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use((req, res, next) => {
+    // console.log(req.session)
+    // console.log(req.user)
+    console.log('AUTHENTICATED? : ' + req.isAuthenticated())
+    next()
+})
+
+
+const indexRouter = require('./routes/index')
+const loginRouter = require('./routes/login')
+const signupRouter = require('./routes/signup')
+const logoutRouter = require('./routes/logout')
+app.use('/', indexRouter)
+app.use('/login', loginRouter)
+app.use('/signup', signupRouter)
+app.use('/logout', logoutRouter)
+
+
+
+app.listen(process.env.PORT || 3003, () => {
+    console.log('The server is listening on port 3003, PasswordManager')
 
 })
 
-app.post('/users/login', async (req,res) => {
-    const user = users.find((user) => user.name == req.body.name)
-    if (user == null) {
-        return res.status(400).send('Cannot find user')
-    }
-
-    try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            res.send('Success')
-        } else {
-            res.send('Incorrect password')
-        }
-    } catch {
-        res.status(500).send('Error processing')
-    }
-})
-
-app.get('/users/clear', (req, res) => {
-    while (users.length != 0)
-        users.pop()
-    res.send('DELETED ALL USERS')
-})
-app.listen(3000)
