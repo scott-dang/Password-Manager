@@ -6,10 +6,10 @@ const { genPassword } = require("../config/pw")
 module.exports = {
     get : (req,res) => {
         if (!req.isAuthenticated()) {
-            const failureReasoning = ''
-            res.render('signup', { failureReasoning }) 
+            res.render('signup') 
         } else {
-            res.redirect('/')
+            const message = 'You are already logged in.'
+            res.render('message', { message })
         }
     },
 
@@ -22,8 +22,7 @@ module.exports = {
             const hashedPassword = await genPassword(req.body.password)
             const newUser = new User({
                 username: req.body.username,
-                hash: hashedPassword.hash,
-                salt: hashedPassword.salt,
+                hash: hashedPassword.hash
             })
 
             newUser.save().then(user => {
@@ -32,8 +31,8 @@ module.exports = {
             res.redirect('/login')
         }
         else { 
-            const failureReasoning = 'Please choose a different username'
-            res.render('signup', {failureReasoning}) 
+            const message = 'Please choose a different username'
+            res.render('message', { message }) 
         }
         
     }

@@ -38,17 +38,30 @@ app.use((req, res, next) => {
     console.log('AUTHENTICATED? : ' + req.isAuthenticated())
     next()
 })
+app.use((req,res,next) => {
+    if (req.isAuthenticated()) {
+        res.locals.username = req.user.username
+    } else {
+        res.locals.username = ''
+    }
+    res.locals.serviceObj = new Map()
+    res.locals.message = ''
+    next()
+})
 
 
 const indexRouter = require('./routes/index')
 const loginRouter = require('./routes/login')
 const signupRouter = require('./routes/signup')
 const logoutRouter = require('./routes/logout')
+const passwordsRouter = require('./routes/passwords')
+const genPasswords = require('./routes/genPasswords')
 app.use('/', indexRouter)
 app.use('/login', loginRouter)
 app.use('/signup', signupRouter)
 app.use('/logout', logoutRouter)
-
+app.use('/passwords', passwordsRouter)
+app.use('/genPasswords', genPasswords)
 
 
 app.listen(process.env.PORT || 3003, () => {

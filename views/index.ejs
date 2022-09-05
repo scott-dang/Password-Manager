@@ -1,5 +1,58 @@
-<form action="/logout" method="get">
-    <h1>Currently logged in as <%= username %></h1>
-    <button type="submit">Logout</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/index.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
 
+<body>
+
+    <div id="nav">
+        <ul>
+            <li>Password Manager | Navbar</li>
+            <li>
+                <a href="/"><%= username %></a>
+            </li>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <form action="/logout" method="get">
+                    <input type="submit" value="Logout">
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <div id="services">
+        <ul>
+            <% serviceObj.forEach( (passwordforservice, servicename) => { %>
+                <li><%= servicename %></li>
+                <form action="/passwords" method="get">
+                    <button name="servicename" value=<%= servicename %> type="submit">Reveal password</button>
+                    <input type="text" name="secretkey" placeholder="Secret Key" minlength="32" maxlength="32" required>
+                </form>
+                <form action="/passwords" method="post">
+                    <button name="servicename" value=<%= servicename %> type="submit">Delete</button>
+                </form> 
+            <% }) %>
+        </ul>
+    </div>
+
+    <div>
+        <form action="/genPasswords" method="post">
+            <label for="newservice">Service</label>
+            <input type="text" placeholder="" value="" autocomplete="off" name="newservice" required>
+            <label for="newpassword">Password</label>
+            <input type="text" placeholder="" value="" autocomplete="off" name="newpassword" required>
+            <button type="submit">Create new password profile</button>
+            <input type="password" value="" autocomplete="off" name="secretkey" placeholder="Secret Key" required minlength="32" maxlength="32">
+        </form>
+    </div>
+    
+
+</body>    
+</html>

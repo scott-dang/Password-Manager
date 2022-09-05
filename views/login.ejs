@@ -1,23 +1,40 @@
 <link rel="stylesheet" href="css/login.css">
-<div id="login">
-    <h1>Login Page</h1>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <form action="/login" method="post" autocomplete="off">
+        <title>
+            Login
+        </title>
+    </head>
 
-        <div id="username"> 
-            <label for="username">User ID</label>
-            <input type="text" name="username" id="username" value="" required>
-        </div>
-        <div id="password">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" value="" required>
+    <body>
+        
+        <div id="login">
+            
+            <div><h1>Password Manager <br>Login</h1></div>
+            
+            <form action="/login" method="post" autocomplete="off">
+                
+                <div id="username"> 
+                    <label for="username">User ID</label>
+                    <input type="text" name="username" id="username" value="" required autofocus>
+                </div>
+                <div id="password">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" value="" required>
+                </div>
+                
+                <button type="submit">Login</button>
+            </form>        
+            <div id="signup">
+                <h2>Don't have an account?</h2>
+                <a href="/signup">Create an account</a>
+            </div>
         </div>
         
-        <button type="submit">Login</button>
-    </form>        
-</div>
-
-<div>
-    <h2>Don't have an account?</h2>
-    <a href="/signup">Create an account</a>
-</div>
+        
+    </body>
+</html>

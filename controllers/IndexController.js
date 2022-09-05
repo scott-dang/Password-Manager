@@ -5,9 +5,8 @@ module.exports = {
         let loggedIn = req.isAuthenticated()
 
         if (loggedIn) {
-            const username = req.user.username
-            res.render('index', { username })
-            
+            res.locals.serviceObj = req.user.passwords
+            res.render('index')
         }
         else {
             res.render('login')

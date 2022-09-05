@@ -10,7 +10,6 @@ module.exports = {
             let salt = await bcrypt.genSalt()
             let hashedPassword = await bcrypt.hash(password, salt)
             return {
-                salt: salt,
                 hash: hashedPassword
             }
 
