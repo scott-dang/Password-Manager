@@ -10,22 +10,16 @@
 
 <body>
 
-    <div id="nav">
+    <nav>
+        <h2>Password Manager | Navbar</h2>
         <ul>
-            <li>Password Manager | Navbar</li>
-            <li>
-                <a href="/"><%= username %></a>
-            </li>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <form action="/logout" method="get">
-                    <input type="submit" value="Logout">
-                </form>
-            </li>
+            <li><a href="/"><%= username %></a></li>
+            <li><a href="/">Home</a></li>
         </ul>
-    </div>
+        <form action="/logout" method="get">
+            <input type="submit" value="Logout">
+        </form>
+    </nav>
 
     <div id="services">
         <ul>
