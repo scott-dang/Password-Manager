@@ -32,11 +32,11 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use((err, req, res, next) => {
+app.use((req, res, next) => {
     console.log('AUTHENTICATED? : ' + req.isAuthenticated())
     next()
 })
-app.use((err, req,res,next) => {
+app.use((req,res, next) => {
     if (req.isAuthenticated()) {
         res.locals.username = req.user.username
     } else {
@@ -46,13 +46,13 @@ app.use((err, req,res,next) => {
     res.locals.message = 'There was an error'
     next()
 })
-app.use((err,req,res,next) => {
-    if (err) {
-        res.render('message')
-    } else {
-        next()
-    }
-})
+// app.use((err,req,res,next) => {
+//     if (err) {
+//         res.render('message')
+//     } else {
+//         next()
+//     }
+// })
 
 
 const indexRouter = require('./routes/index')
