@@ -32,21 +32,26 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use((req, res, next) => {
-    // console.log(req.session)
-    // console.log(req.user)
+app.use((err, req, res, next) => {
     console.log('AUTHENTICATED? : ' + req.isAuthenticated())
     next()
 })
-app.use((req,res,next) => {
+app.use((err, req,res,next) => {
     if (req.isAuthenticated()) {
         res.locals.username = req.user.username
     } else {
         res.locals.username = ''
     }
     res.locals.serviceObj = new Map()
-    res.locals.message = ''
+    res.locals.message = 'There was an error'
     next()
+})
+app.use((err,req,res,next) => {
+    if (err) {
+        res.render('message')
+    } else {
+        next()
+    }
 })
 
 

@@ -32,31 +32,35 @@ module.exports = {
     },
 
     post: async (req,res) => {
-        if (req.isAuthenticated()) {
-            const user = await User.findById(req.user.id)
+        try {
 
-            const servicename = req.body.newservice
-            const secretkey = req.body.secretkey
-            const username = req.body.newusername
-
-            console.log('USERNAME: ' + username)
-
-            if (user.passwords.has(servicename)) {
-
-                const message = 'That service already exists.'
-                res.render('message', { message })
+            if (req.isAuthenticated()) {
+                const user = await User.findById(req.user.id)
+                
+                const servicename = req.body.newservice
+                const secretkey = req.body.secretkey
+                const username = req.body.newusername
+                
+                console.log('USERNAME: ' + username)
+                
+                if (user.passwords.has(servicename)) {
+                    
+                    const message = 'That service already exists.'
+                    res.render('message', { message })
+                } else {
+                    user.passwords.set(servicename, [username, encrypt(req.body.newpassword, secretkey)])
+                    
+                    user.save().then(() => {
+                        
+                        res.redirect('/') 
+                    })
+                    
+                }
             } else {
-
-                user.passwords.set(servicename, [username, encrypt(req.body.newpassword, secretkey)])
-
-                user.save().then(() => {
-
-                    res.redirect('/') 
-                })
-
+                res.redirect('/login')
             }
-        } else {
-            res.redirect('/login')
+        } catch (err) {
+            res.render('message')
         }
     }
 
