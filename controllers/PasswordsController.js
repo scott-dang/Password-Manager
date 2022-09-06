@@ -13,7 +13,7 @@ module.exports = {
                 console.log(req.query.servicename)
                 const encryptedPassword = user.passwords.get(req.query.servicename)
                 const decryptedPassword = decrypt(encryptedPassword, req.query.secretkey)
-                const message = 'The password you for ' + req.query.servicename + ' is \'' + decryptedPassword + '\''
+                const message = 'The password for ' + req.query.servicename + ' is \'' + decryptedPassword + '\''
                 res.render('message', { message })
             } catch (err) {
                 const message = err
