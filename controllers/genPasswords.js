@@ -39,9 +39,11 @@ module.exports = {
 
                 user.passwords.set(servicename, encrypt(req.body.newpassword, secretkey))
 
-                user.save()
+                user.save().then(() => {
 
-                res.redirect('/') 
+                    res.redirect('/') 
+                })
+
             }
         } else {
             res.redirect('/login')
