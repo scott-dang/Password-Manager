@@ -64,6 +64,12 @@ app.use('/logout', logoutRouter)
 app.use('/passwords', passwordsRouter)
 app.use('/genPasswords', genPasswords)
 
+app.use((req,res) => {
+    res.status(404)
+    const message = 'This page is unavailable'
+    res.render('message', { message })
+})
+
 
 app.listen(process.env.PORT || 3003, () => {
     console.log('The server is listening on port 3003, PasswordManager')
