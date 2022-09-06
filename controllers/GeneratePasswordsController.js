@@ -24,11 +24,22 @@ module.exports = {
     
     decrypt,
 
-    get: (req, res) => {
+    get: async (req, res) => {
+
+        const newMap = new Map()
+        req.user.passwords.forEach( (serviceObj, servicename) => {
+            newMap.set(servicename, serviceObj[0])
+        })
+        res.locals.serviceObj = newMap
         
-        const newRandomPassword = crypto.randomBytes(16).toString('hex')
-        const message = 'Generated password: ' +  newRandomPassword
-        res.render('message', { message })
+        const secretkey = await crypto.randomBytes(16).toString('hex')
+        const newservice = ''
+        console.log('new service: '  + req.body.newservice)
+
+        res.locals.secretkey = secretkey
+        
+        console.log('generated secretkey: ' + secretkey)
+        res.render('index', { secretkey })
     },
 
     post: async (req,res) => {

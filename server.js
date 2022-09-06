@@ -43,17 +43,13 @@ app.use((req,res, next) => {
         res.locals.username = ''
     }
     res.locals.serviceObj = new Map()
+    res.locals.secretkey = ''
+    // res.locals.newservice = ''
+    // res.locals.newusername = ''
+    // res.locals.newpassword = ''
     res.locals.message = 'There was an error'
     next()
 })
-// app.use((err,req,res,next) => {
-//     if (err) {
-//         res.render('message')
-//     } else {
-//         next()
-//     }
-// })
-
 
 const indexRouter = require('./routes/index')
 const loginRouter = require('./routes/login')

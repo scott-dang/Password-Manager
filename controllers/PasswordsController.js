@@ -1,8 +1,9 @@
 const User = require('../models/User')
-const decrypt = require('../controllers/genPasswords').decrypt
+const decrypt = require('./GeneratePasswordsController').decrypt
 
 module.exports = {
 
+    
     get: async (req,res) => {
         
         const loggedIn = req.isAuthenticated()

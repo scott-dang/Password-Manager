@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../controllers/genPasswords')
+const controller = require('../controllers/GeneratePasswordsController')
 
 router.post('/', controller.post)
 router.get('/', controller.get)
