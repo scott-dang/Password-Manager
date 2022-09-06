@@ -26,11 +26,11 @@
             <% serviceObj.forEach( (passwordforservice, servicename) => { %>
                 <li><%= servicename %></li>
                 <form action="/passwords" method="get">
-                    <button name="servicename" value=<%= servicename %> type="submit">Reveal password</button>
+                    <button name="servicename" value="<%= servicename %>" type="submit">Reveal password</button>
                     <input type="text" name="secretkey" placeholder="Secret Key" minlength="32" maxlength="32" required>
                 </form>
                 <form action="/passwords" method="post">
-                    <button name="servicename" value=<%= servicename %> type="submit">Delete</button>
+                    <button name="servicename" value="<%= servicename %>" type="submit">Delete</button>
                 </form> 
             <% }) %>
         </ul>

@@ -8,11 +8,17 @@ module.exports = {
         const loggedIn = req.isAuthenticated()
 
         if (loggedIn) {
-            const user = await User.findById(req.user.id)
-            const encryptedPassword = user.passwords.get(req.query.servicename)
-            const decryptedPassword = decrypt(encryptedPassword, req.query.secretkey)
-            const message = 'The password you for ' + req.query.servicename + ' is \'' + decryptedPassword + '\''
-            res.render('message', { message })
+            try {
+                const user = await User.findById(req.user.id)
+                console.log(req.query.servicename)
+                const encryptedPassword = user.passwords.get(req.query.servicename)
+                const decryptedPassword = decrypt(encryptedPassword, req.query.secretkey)
+                const message = 'The password you for ' + req.query.servicename + ' is \'' + decryptedPassword + '\''
+                res.render('message', { message })
+            } catch (err) {
+                const message = err
+                res.render('message', { message } )
+            }
         } else {
             res.render('login')
         }
@@ -23,7 +29,6 @@ module.exports = {
 
         if (loggedIn) {
             const user = await User.findById(req.user.id)
-            console.log(req.body.servicename)
             user.passwords.delete(req.body.servicename)
             user.save()
             res.redirect('/')
