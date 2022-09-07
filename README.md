@@ -21,13 +21,16 @@ MongoDB used for storing data.
 
 ## How can I deploy my own setup?
 #### Local setup
-Clone and create a .env file.  <br>
+Clone.  <br>
+npm init -y and npm install to download all dependencies. <br>
+Create a .env file.  <br>
 In the .env, create 2 variables called DATABASE_URL and SESSION_SECRET.  <br>
 Plug in your local MongoDB connection url into DATABASE_URL and a random string of characters for SESSION_SECRET.  <br>
 > A local MongoDB connection url will look like this, mongodb://localhost/insert_db_name
 
 #### Deployment w/ Heroku setup
 Clone.  <br>
+npm init -y and npm install to download all dependencies. <br>
 Create a cluster on MongoDB and whitelist 0.0.0.0/0. Then setup the connection and copy the connection url (database_url).   <br>
 Create app on Heroku.  <br>
 Create an app on Heroku and follow the instructions to deploy it on Heroku.  <br>
