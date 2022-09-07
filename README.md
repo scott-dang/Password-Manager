@@ -24,7 +24,7 @@ MongoDB used for storing data.
 Clone and create a .env file.
 In the .env, create 2 variables called DATABASE_URL and SESSION_SECRET.
 Plug in your local MongoDB connection url into DATABASE_URL and a random string of characters for SESSION_SECRET.
-> A local MongoDB connection url will look like this, mongodb://localhost/insert_db_name*
+> A local MongoDB connection url will look like this, mongodb://localhost/insert_db_name
 
 #### Deployment w/ Heroku setup
 Clone.
