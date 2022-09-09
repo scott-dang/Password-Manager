@@ -5,10 +5,8 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
-const bcrypt = require('bcrypt')
 
 const connection = require('./config/db')
-const error = require('./config/error')
 const passport = require('./config/passport')
 
 const app = express()
@@ -27,7 +25,7 @@ app.use(session({
         collectionName: 'sessions'
     }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // 1 sec (in ms) * ... = 1 day
+        maxAge: 1000 * 60 * 60 * 24 
     }
 }))
 app.use(passport.initialize())
@@ -44,9 +42,6 @@ app.use((req,res, next) => {
     }
     res.locals.serviceObj = new Map()
     res.locals.secretkey = ''
-    // res.locals.newservice = ''
-    // res.locals.newusername = ''
-    // res.locals.newpassword = ''
     res.locals.message = 'There was an error'
     next()
 })
