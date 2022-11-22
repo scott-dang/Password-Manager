@@ -3,7 +3,7 @@
 Web app that lets users signup and create password profiles letting users
 store usernames and passwords on a MongoDB database.
 
-Deployed on heroku. Deployment will cease once Heroku's free tier ends on November 28, 2022.
+Deployed on Heroku. Deployment will cease once Heroku's free tier ends on November 28, 2022.
 
 ## How is data stored?
 
